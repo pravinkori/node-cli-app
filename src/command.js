@@ -17,6 +17,23 @@ const listNotes = (notes) => {
     });
 };
 
+/**
+ * CLI (Command-Line Interface) for managing notes using yargs.
+ *
+ * Available Commands:
+ * - 'new <note>': Creates a new note with optional tags.
+ * - 'all': Retrieves and displays all notes.
+ * - 'find <filter>': Finds and displays notes matching a provided filter.
+ * - 'remove <id>': Removes a note by specifying its ID.
+ * - 'web [port]': Launches a website (placeholder functionality).
+ * - 'clean': Removes all notes.
+ *
+ * Each command is associated with corresponding functions from the 'notes.js' module for note management.
+ * Arguments and options are defined using yargs to capture user inputs from the command line.
+ *
+ * Usage:
+ * Run the script from the command line with specific commands and options to manage notes interactively.
+ */
 yargs(hideBin(process.argv))
     .command(
         "new <note>",
