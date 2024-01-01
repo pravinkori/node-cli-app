@@ -66,3 +66,27 @@ test("getAllNotes returns all notes", async () => {
     const result = await getAllNotes();
     expect(result).toEqual(db.notes);
 });
+
+/**
+ * Test case for 'removeNote' function when ID is not found:
+ *
+ * Test scenario:
+ * 1. Sets up a mock array of notes with different IDs.
+ * 2. Mocks the 'saveDB' function to simulate its behavior, resolving with the provided mock notes array.
+ * 3. Calls the 'removeNote' function with an ID that does not exist in the mock notes array.
+ * 4. Asserts that 'removeNote' does nothing and returns 'undefined' when the specified ID is not found.
+ *
+ * This test ensures that 'removeNote' gracefully handles the scenario when attempting to remove a note with an ID that does not exist in the database.
+ */
+test("removeNote does nothing if id is not found", async () => {
+    const notes = [
+        { id: 1, content: "note 1" },
+        { id: 2, content: "note 2" },
+        { id: 3, content: "note 3" },
+    ];
+    saveDB.mockResolvedValue(notes);
+
+    const idToRemove = 4;
+    const result = await removeNote(idToRemove);
+    expect(result).toBeUndefined();
+});
