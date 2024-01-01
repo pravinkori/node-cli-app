@@ -18,3 +18,30 @@ beforeEach(() => {
     getDB.mockClear();
     saveDB.mockClear();
 });
+
+/**
+ * Test case for 'newNote' function:
+ *
+ * Test scenario:
+ * 1. Sets up a test note content and tags.
+ * 2. Defines an expected 'data' object to simulate the structure after insertion into the database.
+ * 3. Mocks the 'insert' function to simulate its behavior, resolving with the provided 'data'.
+ * 4. Invokes the 'newNote' function with the test note content and tags.
+ * 5. Asserts that the returned result from 'newNote' matches the expected 'data' structure after insertion.
+ *
+ * This test ensures that 'newNote' correctly inserts data into the database and returns the inserted data.
+ */
+test("newNote inserts data and returns it", async () => {
+    const note = "Test note";
+    const tags = ["tag1", "tag2"];
+    const data = {
+        tags,
+        content: note,
+        id: Date.now(),
+    };
+    insert.mockResolvedValue(data);
+
+    const result = await newNote(data.content, data.tags);
+    expect(result.content).toEqual(data.content);
+    expect(result.tags).toEqual(data.tags);
+});
