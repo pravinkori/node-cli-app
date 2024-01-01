@@ -45,3 +45,24 @@ test("newNote inserts data and returns it", async () => {
     expect(result.content).toEqual(data.content);
     expect(result.tags).toEqual(data.tags);
 });
+
+/**
+ * Test case for 'getAllNotes' function:
+ *
+ * Test scenario:
+ * 1. Sets up a mock database object containing an array of notes.
+ * 2. Mocks the 'getDB' function to simulate its behavior, resolving with the provided mock database.
+ * 3. Invokes the 'getAllNotes' function to retrieve all notes from the database.
+ * 4. Asserts that the returned result from 'getAllNotes' matches the array of notes present in the mock database.
+ *
+ * This test ensures that 'getAllNotes' correctly retrieves and returns all notes from the database.
+ */
+test("getAllNotes returns all notes", async () => {
+    const db = {
+        notes: ["note1", "note2", "note3"],
+    };
+    getDB.mockResolvedValue(db);
+
+    const result = await getAllNotes();
+    expect(result).toEqual(db.notes);
+});
