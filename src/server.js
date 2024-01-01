@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import http from "node:http";
-// import open from 'open'
 
 /**
  * Interpolates dynamic data into HTML template placeholders.
@@ -13,7 +12,7 @@ import http from "node:http";
  * with corresponding values from the 'data' object. If a placeholder is not found
  * in the 'data' object, it's replaced with an empty string.
  */
-const interpolate = (html, data) => {
+export const interpolate = (html, data) => {
     return html.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, placeholder) => {
         return data[placeholder] || "";
     });
@@ -30,7 +29,7 @@ const interpolate = (html, data) => {
  * with tags represented as 'tag' spans inside a 'tags' div. The resulting
  * HTML structure is returned as a string.
  */
-const formatNotes = (notes) => {
+export const formatNotes = (notes) => {
     return notes
         .map((note) => {
             return `
@@ -45,4 +44,43 @@ const formatNotes = (notes) => {
       `;
         })
         .join("\n");
+};
+
+/**
+ * Creates an HTTP server handling requests to display formatted notes as HTML.
+ *
+ * @param {Array<Object>} notes - An array of note objects to be displayed.
+ * @returns {http.Server} An HTTP server instance.
+ *
+ * This function sets up an HTTP server that handles incoming requests and responds
+ * by rendering a formatted HTML page containing the provided notes. It reads an
+ * HTML template file, formats the notes into HTML using 'formatNotes', and
+ * generates a response with the formatted HTML.
+ */
+export const createServer = (notes) => {
+    return http.createServer(async (req, res) => {
+        const HTML_PATH = new URL("./template.html", import.meta.url).pathname;
+        const template = await fs.readFile(HTML_PATH, "utf-8");
+        const html = interpolate(template, { notes: formatNotes(notes) });
+
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(html);
+    });
+};
+
+/**
+ * Starts an HTTP server to display notes on a specified port.
+ *
+ * @param {Array<Object>} notes - An array of note objects to be displayed.
+ * @param {number} port - The port on which the server will listen.
+ *
+ * This function initiates an HTTP server using 'createServer' to display notes
+ * as HTML. It listens on the specified 'port' and logs a message indicating
+ * the server's start-up with the provided port.
+ */
+export const start = (notes, port) => {
+    const server = createServer(notes);
+    server.listen(port, () => {
+        console.log(`Server is listening on port http://localhost:${port}`);
+    });
 };
