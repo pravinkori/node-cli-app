@@ -10,10 +10,10 @@ import {
 
 const listNotes = (notes) => {
     notes.forEach((note) => {
-        console.log("\n");
         console.log("id: ", note.id);
         console.log("tags: ", note.tags.join(", "));
         console.log("note: ", note.content);
+        console.log("\n");
     });
 };
 
@@ -30,7 +30,7 @@ yargs(hideBin(process.argv))
         async (argv) => {
             const tags = argv.tags ? argv.tags.split(",") : [];
             const note = await newNote(argv.note, tags);
-            console.log("Note added!", note.id);
+            console.log("Note added!", note);
         }
     )
     .option("tags", {
@@ -58,8 +58,8 @@ yargs(hideBin(process.argv))
             });
         },
         async (argv) => {
-            const notes = await findNotes(argv.filter);
-            listNotes(notes);
+            const matchedNotes = await findNotes(argv.filter);
+            listNotes(matchedNotes);
         }
     )
     .command(

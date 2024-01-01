@@ -1,3 +1,23 @@
 {
-    "notes": []
+  "notes": [
+    {
+      "tags": [
+        "grocerries"
+      ],
+      "content": "Buy milk, eggs, and snacks",
+      "id": 1704090305035
+    },
+    {
+      "tags": [],
+      "content": "Drink more water",
+      "id": 1704090763233
+    },
+    {
+      "tags": [
+        "hike"
+      ],
+      "content": "Plan a hike for weekend",
+      "id": 1704090852450
+    }
+  ]
 }

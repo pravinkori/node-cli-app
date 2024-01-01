@@ -40,7 +40,7 @@ export const getAllNotes = async () => {
  * @returns {Promise<Array<Object>>} A Promise that resolves to an array containing notes matching the filter criteria.
  */
 export const findNotes = async (filter) => {
-    const { notes } = await getAllNotes();
+    const { notes } = await getDB();
     return notes.filter((note) =>
         note.content.toLowerCase().includes(filter.toLowerCase())
     );
@@ -55,7 +55,7 @@ export const findNotes = async (filter) => {
  * @returns {Promise<number|undefined>} A Promise that resolves to the ID of the removed note, or undefined if the note with the specified ID is not found.
  */
 export const removeNote = async (id) => {
-    const { notes } = await getAllNotes();
+    const { notes } = await getDB();
     const match = notes.find((note) => note.id === id);
 
     if (match) {
