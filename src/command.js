@@ -1,5 +1,6 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import { listNotes } from "./utility.js";
 import {
     newNote,
     getAllNotes,
@@ -7,15 +8,6 @@ import {
     removeNote,
     removeAllNotes,
 } from "./notes.js";
-
-const listNotes = (notes) => {
-    notes.forEach((note) => {
-        console.log("id: ", note.id);
-        console.log("tags: ", note.tags.join(", "));
-        console.log("note: ", note.content);
-        console.log("\n");
-    });
-};
 
 /**
  * CLI (Command-Line Interface) for managing notes using yargs.
