@@ -14,7 +14,7 @@ Before running the project, ensure that you have Node.js and npm (Node Package M
 1. Clone the repository or download the source code.
 
 ```bash
-git clone https://github.com/your-username/node-intro.git
+git clone https://github.com/pravinkori/node-cli-app.git
 cd node-cli-app
 ```
 
